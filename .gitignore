@@ -1,1 +1,3 @@
-secrets.*
+# Data volumn
+grafana-data/*
+influxdb-data/*

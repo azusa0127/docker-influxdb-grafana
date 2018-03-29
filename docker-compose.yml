@@ -5,30 +5,24 @@ services:
     container_name: influxdb
     ports:
       - "8086:8086"
-    env_file:
-      - 'env.influxdb'
-      - 'secrets.influxdb'
+    environment:
+      - INFLUXDB_REPORTING_DISABLED=false
     networks:
       - backend
     volumes:
-      - influxdb-data:/var/lib/influxdb
-  
+      - ${PWD}/influxdb-data:/var/lib/influxdb
+
   grafana:
     image: grafana/grafana:latest
     container_name: grafana
     ports:
-      - "3000:3000"
-    env_file:
-      - 'env.grafana'
-      - 'secrets.grafana'
+      - "8080:3000"
+    environment:
+      - GF_USERS_ALLOW_SIGN_UP=false
     networks:
       - backend
     volumes:
-      - grafana-data:/var/lib/grafana
+      - ${PWD}/grafana-data:/var/lib/grafana
 
 networks:
   backend:
-
-volumes:
-  influxdb-data:
-  grafana-data:
